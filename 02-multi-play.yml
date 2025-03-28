@@ -17,9 +17,9 @@
       copy:
         dest: /opt/devops/info.txt
         content: "Hello from Ansible!"
-        mode: '0644'       
+        mode: '0644'
 
-  name:Repeat: Ensure /opt/devops has necessary files
+- name: Additional Setup for /opt/devops
   hosts: all
   become: yes
   tasks:
@@ -29,21 +29,9 @@
         content: "This is a managed directory by Ansible."
         mode: '0644'
 
-  name: Set permissions for /opt/devops
-  file:
+    - name: Ensure correct permissions for /opt/devops
+      file:
         path: /opt/devops
         mode: '0755'
-        state: directory  
-
-  name:Final Check: Ensure system setup is correct
-  hosts: all
-  become: yes
-  tasks:
-    - name: Display the contents of /opt/devops
-      command: cat /opt/devops/info.txt
-      register: file_contents        
-
-      name: Print the contents of info.txt
-      debug:
-        msg: "{{ file_contents.stdout }}"
+        state: directory
 ...        
