@@ -3,15 +3,9 @@
   hosts: web_servers
   become: yes
   tasks:
-    - name: Install Apache2 
+    - name: Install Apache
       apt:
         name: Apache2
         state: present
-
-    - name: Start and enable apache2
-      service:
-        name: apache2
-        state: started
-        enabled: yes
-
+                
 ...        
