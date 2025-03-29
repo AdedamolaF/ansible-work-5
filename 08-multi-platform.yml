@@ -1,27 +1,35 @@
 ---
+---
 - name: Install and start HTTPD
-  hosts: web_servers
+  hosts: all
   become: yes
   tasks:
-    - name: Install Apache (httpd)
+    - name: Install Apache (httpd) on RedHat
       yum:
         name: httpd
         state: present
-      when: ansible_distribution == "Amazon"
+      when: ansible_os_family == "RedHat"
 
     - name: Start and enable httpd service (RedHat)
-  systemd:
-    name: httpd
-    state: started
-    enabled: yes
-  when: ansible_os_family == "RedHat"
+      systemd:
+        name: httpd
+        state: started
+        enabled: yes
+      when: ansible_os_family == "RedHat"
 
-
-- name: Install Apache (Ubuntu/Debian)
-  apt:
-        name: apache2  
+    - name: Install Apache (apache2) on Ubuntu
+      apt:
+        name: apache2
         state: present
         update_cache: yes
-  when: ansible _distribution == "ubuntu"
+      when: ansible_os_family == "Debian"
+
+    - name: Start and enable apache2 service (Ubuntu)
+      systemd:
+        name: apache2
+        state: started
+        enabled: yes
+      when: ansible_os_family == "Debian"
+
 
 ...        
