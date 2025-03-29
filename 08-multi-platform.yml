@@ -1,5 +1,4 @@
 ---
----
 - name: Install and start HTTPD
   hosts: all
   become: yes
@@ -30,6 +29,5 @@
         state: started
         enabled: yes
       when: ansible_os_family == "Debian"
-
 
 ...        
