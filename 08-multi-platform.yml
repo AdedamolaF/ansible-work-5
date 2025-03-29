@@ -1,6 +1,6 @@
 ---
 - name: Install and start HTTPD
-  hosts: all
+  hosts: web_servers
   become: yes
   tasks:
     - name: Install Apache (httpd) on RedHat
